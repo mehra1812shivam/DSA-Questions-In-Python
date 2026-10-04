@@ -37,6 +37,8 @@ def searchRange(nums,target):
         guess=(low+high)//2
         if nums[guess]<target:
             low=guess+1
+        elif nums[guess]>target:
+            high=guess-1
         else:
             high=guess-1
     if low==len(nums)or nums[low] != target:
@@ -47,12 +49,11 @@ def searchRange(nums,target):
     high=len(nums)-1
     while low<=high:
         guess=(low+high)//2
-        if nums[guess]<target:
+        if nums[guess]<=target:
             low=guess+1
-        elif nums[guess]>target:
-            high=guess-1
         else:
-            low=guess+1
+            high=guess-1
+        
     if high<0 or nums[high] != target:
         result.append(-1)
     else:
