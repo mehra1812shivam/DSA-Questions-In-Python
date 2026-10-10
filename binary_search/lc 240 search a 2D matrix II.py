@@ -27,6 +27,8 @@ All the integers in each row are sorted in ascending order.
 All the integers in each column are sorted in ascending order.
 -109 <= target <= 109
 """
+
+#Approach 1: BS on each row
 class Solution:
     def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:
         for row in matrix:
@@ -44,3 +46,24 @@ class Solution:
                     high = mid - 1
 
         return False
+
+# Approach 2: optimal Staircase search
+
+class Solution:
+    def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:
+        i = len(matrix) - 1
+        j = 0
+
+        while i >= 0 and j < len(matrix[0]):
+            if matrix[i][j] == target:
+                return True
+            elif matrix[i][j] > target:
+                i -= 1
+            else:
+                j += 1
+
+        return False
+
+"""
+Time complexity: O(m+n)
+"""
