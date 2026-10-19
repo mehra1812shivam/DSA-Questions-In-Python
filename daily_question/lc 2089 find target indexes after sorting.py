@@ -69,3 +69,51 @@ class Solution:
 
 # Time Complexity: O(n) - optimal approach
 
+# Method 3 binary search approach
+
+class Solution:
+    def targetIndices(self, nums: list[int], target: int) -> list[int]:
+        nums.sort()  
+        def find_lower_bound(nums, target):
+            left, right = 0, len(nums) - 1
+            lower_bound = -1
+            
+            while left <= right:
+                mid = left + (right - left) // 2
+                if nums[mid] == target:
+                    lower_bound = mid
+                    right = mid - 1  
+                elif nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return lower_bound
+
+        
+        def find_upper_bound(nums, target):
+            left, right = 0, len(nums) - 1
+            upper_bound = -1
+            
+            while left <= right:
+                mid = left + (right - left) // 2
+                if nums[mid] == target:
+                    upper_bound = mid
+                    left = mid + 1   
+                elif nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return upper_bound
+
+        start_idx = find_lower_bound(nums, target)
+        
+        
+        if start_idx == -1:
+            return []
+            
+        end_idx = find_upper_bound(nums, target)
+        
+        
+        return list(range(start_idx, end_idx + 1))
+
+# Time Complexity: O(nlogn)+O(logn)= O(nlogn)
